@@ -44,6 +44,16 @@ var tecla;
 var hada;
 var hadaText;
 var navy;
+var music = 
+    {
+        mute: false,
+        volume: 10,
+        rate: 1,
+        detune: 0,
+        seek: 0,
+        loop: true,
+        delay: 0
+    };
 
 var game = new Phaser.Game(config);
 
@@ -56,6 +66,7 @@ function preload ()
     this.load.image('hada', 'assets/fairy.png',);
     this.load.image('navy', 'assets/fairyII.png',);
     this.load.spritesheet('zelda', 'assets/zelda.png', { frameWidth: 36, frameHeight:46 });
+    this.load.audio('bgmusic', 'assets/ZeldaMainThemeSong.mp3');
 }
 
 function create ()
@@ -140,6 +151,9 @@ function create ()
 
     cursors = this.input.keyboard.createCursorKeys();
     tecla=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
+    music = this.sound.play('bgmusic');
+    
 }
 
 function update ()
@@ -200,7 +214,7 @@ function update ()
 
 }
 
-function collectStar (player, star)
+function collectStar (player, star, navy)
 {
     star.disableBody(true, true);
 
@@ -240,6 +254,7 @@ function collectStar (player, star)
         console.log("antes");
         this.physics.add.overlap(player, navy, collectNavy, null, this);
         console.log("despues");
+
     }
 }
 

@@ -54,6 +54,8 @@ var music =
         loop: true,
         delay: 0
     };
+var level=1;
+var levelText;
 
 var game = new Phaser.Game(config);
 
@@ -136,8 +138,9 @@ function create ()
 
     bombs = this.physics.add.group();
  
+    levelText = this.add.text(350, 550, 'Level: 1', { fontSize: '32px', fill: 'black' });
     //  The score
-    scoreText = this.add.text(16, 550, 'score: 0', { fontSize: '32px', fill: '#ff0000' });
+    scoreText = this.add.text(16, 550, 'Score: 0', { fontSize: '32px', fill: '#ff0000' });
 
     //  Collide the player and the stars with the platforms
     this.physics.add.collider(player, platforms);
@@ -242,6 +245,9 @@ function collectStar (player, star, navy)
         bomb.setCollideWorldBounds(true);
         bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
         bomb.allowGravity = false;
+
+        level += 1;
+        levelText.setText('Level: ' + level);
 
         var x = (player.x < 400) ? Phaser.Math.Between(0, 800) : Phaser.Math.Between(0, 800);
         var y = (player.y < 300) ? Phaser.Math.Between(0, 500) : Phaser.Math.Between(0, 500);
